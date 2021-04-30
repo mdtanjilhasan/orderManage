@@ -28,15 +28,19 @@
                             <td>{{ product.name }}</td>
                             <td>{{ product.sku }}</td>
                             <td>{{ product.price }}</td>
-                            <td>{{ product.category_id}}</td>
+                            <td>{{ product.category_id }}</td>
                             <td>{{ product.description }}</td>
                             <td>
-                                <router-link :to="{name: 'ProductDetails', params: { id: product.id }}" class="btn btn-sm btn-primary text-uppercase">show
+                                <router-link :to="{name: 'ProductDetails', params: { id: product.id }}"
+                                             class="btn btn-sm btn-primary text-uppercase">show
                                 </router-link>
-                                <router-link :to="{name: 'ProductEdit', params: { id: product.id }}" class="btn btn-sm btn-warning text-uppercase ml-1 mr-1">
+                                <router-link :to="{name: 'ProductEdit', params: { id: product.id }}"
+                                             class="btn btn-sm btn-warning text-uppercase ml-1 mr-1">
                                     edit
                                 </router-link>
-                                <button type="button" class="btn btn-sm btn-danger text-uppercase" @click.prevent="deleteProduct(product.id)">delete</button>
+                                <button type="button" class="btn btn-sm btn-danger text-uppercase"
+                                        @click.prevent="deleteProduct(product.id)">delete
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -58,7 +62,7 @@ export default {
     data() {
         return {
             productsArray: [],
-            notificationMessage:''
+            notificationMessage: ''
         }
     },
     created() {
@@ -72,7 +76,7 @@ export default {
             this.$store.dispatch('products/all')
                 .then(response => {
                     const productArray = [];
-                    for(const key in response.data){
+                    for (const key in response.data) {
                         productArray.push({
                             ...response.data[key]
                         });
@@ -84,7 +88,16 @@ export default {
                 })
         },
         deleteProduct(id) {
-            console.log('delete button clicked with ID => '+id)
+            if (confirm('Are you sure to delete this?')) {
+                this.$store.dispatch('products/delete', id)
+                    .then(response => {
+                        this.notify(response.message)
+                        this.$router.go()
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            }
         },
         notify(message) {
             this.notificationMessage = message

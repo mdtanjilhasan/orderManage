@@ -45,10 +45,20 @@ const product = {
             })
         },
         update(context,params) {
-            console.log(params)
             return new Promise((resolve, reject) => {
                 axios.post('/api/admin/products/update.php',params)
                     .then(response => {
+                        resolve(response.data)
+                    })
+                    .catch(error => {
+                        reject(error.response)
+                    })
+            })
+        },
+        delete(context,id) {
+            return new Promise((resolve, reject) =>{
+                axios.get('/api/admin/products/delete.php?id='+id)
+                    .then(response =>{
                         resolve(response.data)
                     })
                     .catch(error => {
