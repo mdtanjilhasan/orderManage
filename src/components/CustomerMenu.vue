@@ -10,12 +10,6 @@
                     <li class="nav-item active">
                         <router-link to="/home" class="nav-link">Home</router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link to="/product/list" class="nav-link">Products</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/order/list" class="nav-link">Orders</router-link>
-                    </li>
                 </ul>
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
