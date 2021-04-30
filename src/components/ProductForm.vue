@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 class="text-center">{{ title }}</h1>
-        <form @submit.prevent="onSave">
+        <form @submit.prevent="onSave" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="product_name">Name</label>
                 <input type="text" v-model="data.name" class="form-control" required
@@ -16,11 +16,8 @@
                 <label for="product_category">Category</label>
                 <select class="form-control" v-model="data.category_id" required
                         :class="{'is-invalid': validationErrors.category_id}" id="product_category">
-                    <option value="">1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option value="1">category 1</option>
+                    <option value="2">category 2</option>
                 </select>
                 <div v-if="validationErrors.category_id" class="text-danger">
                     {{ validationErrors.category_id }}
@@ -86,6 +83,7 @@ export default {
                 image: ''
             },
             imageUrl: '',
+            image: '',
             validationErrors: {
                 name: '',
                 category_id: '',
@@ -95,12 +93,10 @@ export default {
             }
         }
     },
-    created() {
-        this.data = []
+    beforeUpdate() {
         if (this.product) {
             this.data = {...this.product}
         }
-        console.log(this.data.id)
     },
     methods: {
         onSave() {
@@ -109,7 +105,9 @@ export default {
             params.append('price', this.data.price);
             params.append('description', this.data.description);
             params.append('category_id', this.data.category_id);
-            if ('image' in this.data) {
+            if (this.product) {
+                params.append('image', this.image);
+            } else {
                 params.append('image', this.data.image);
             }
 
@@ -122,7 +120,11 @@ export default {
         },
         imageUpload(event) {
             const file = event.target.files[0]
-            this.data.image = file
+            if (this.product) {
+                this.image = file
+            } else {
+                this.data.image = file
+            }
             this.imageUrl = URL.createObjectURL(file)
         },
         validationErrorMessage(messages) {
