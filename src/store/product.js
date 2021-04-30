@@ -32,6 +32,29 @@ const product = {
                     reject(error.response)
                 });
             })
+        },
+        fetchProduct(context,id) {
+            return new Promise((resolve, reject) => {
+                axios.get('/api/admin/products/read.php?id='+id)
+                    .then(response => {
+                        resolve(response.data)
+                    })
+                    .catch(error => {
+                        reject(error.response)
+                    })
+            })
+        },
+        update(context,params) {
+            console.log(params)
+            return new Promise((resolve, reject) => {
+                axios.post('/api/admin/products/update.php',params)
+                    .then(response => {
+                        resolve(response.data)
+                    })
+                    .catch(error => {
+                        reject(error.response)
+                    })
+            })
         }
     },
     getters: {}

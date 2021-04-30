@@ -14,11 +14,10 @@ axios.interceptors.request.use(config => {
     return config
 })
 
-axios.interceptors.request.use(response => {
+axios.interceptors.response.use(response => {
     return response
 }, function (error){
-    console.log(error.response.data)
-    if (error.response.status === 401) {
+    if (error.response.data.status === 401) {
         store.dispatch('authentication/logout')
         router.push('/')
     }

@@ -34,9 +34,9 @@ export default {
             this.$store.dispatch('products/store', params)
                 .then(response => {
                     this.$router.push({name: 'Products', params: {message: response.message}})
-
                 })
                 .catch(error => {
+                    console.log(error)
                     this.$refs.ProductForm.validationErrorMessage(error.data.messages)
                 })
         }

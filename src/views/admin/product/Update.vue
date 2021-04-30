@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <ProductForm :title="title" :buttonTitle="btnTitle" :product="product" @onSubmit="onSubmit"/>
+                    <ProductForm ref="ProductForm" :title="title" :buttonTitle="btnTitle" :product="product" @onSubmit="onSubmit"/>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
@@ -25,13 +25,7 @@ export default {
     },
     data() {
         return {
-            product: {
-                name: '',
-                category_id: '',
-                price: '',
-                description: '',
-                image: ''
-            },
+            product: [],
             title: 'Product Update',
             btnTitle: 'Update'
         }
@@ -42,16 +36,24 @@ export default {
     },
     methods: {
         onSubmit(params) {
-            this.$store.dispatch('products/store', params)
+            this.$store.dispatch('products/update', params)
                 .then(response => {
-                    console.log(response)
+                    this.$router.push({name: 'Products', params: {message: response.message}})
                 })
                 .catch(error => {
                     console.log('product vue',error)
+                    this.$refs.ProductForm.validationErrorMessage(error.data.messages)
                 })
         },
         findProduct(id) {
-            console.log(id)
+            this.$store.dispatch('products/fetchProduct',id)
+            .then(response => {
+                this.product = {...response.data}
+                console.log(this.product)
+            })
+            .catch(error =>{
+                console.log(error)
+            })
         }
     }
 }
