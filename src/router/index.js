@@ -36,7 +36,7 @@ const routes = [
     {
         path: "/product/:id",
         name: "ProductDetails",
-        component: () => import("@/views/admin/Product"),
+        component: () => import("@/views/admin/product/Details"),
         meta: {
             requiresAuth: true
         }
