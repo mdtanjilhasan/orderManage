@@ -65,6 +65,17 @@ const product = {
                         reject(error.response)
                     })
             })
+        },
+        fetchCustomerProduct() {
+            return new Promise((resolve, reject) => {
+                axios.get('/api/customer/product/read.php')
+                    .then(response => {
+                        resolve(response.data)
+                    })
+                    .catch(error => {
+                        reject(error.response)
+                    });
+            })
         }
     },
     getters: {}

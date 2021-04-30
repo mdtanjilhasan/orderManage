@@ -94,14 +94,8 @@ router.beforeEach((to, from, next) => {
                 router.back()
                 return
             }
-
-            if (to.matched.some(record => record.meta.onlyAdmin)) {
-                router.push('/access/denied')
-                return
-            }
-            next()
         }
-        next('/')
+        next()
     }
 })
 
