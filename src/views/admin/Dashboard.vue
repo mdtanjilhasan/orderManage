@@ -52,9 +52,7 @@ export default {
         AdminMenu
     },
     data() {
-        return {
-
-        }
+        return {}
     }
 }
 </script>

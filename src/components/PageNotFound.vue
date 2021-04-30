@@ -20,7 +20,7 @@ export default {
     name: "PageNotFound",
     data() {
         return {
-            redirect:'/home'
+            redirect: '/home'
         }
     },
     created() {

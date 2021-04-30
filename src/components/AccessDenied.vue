@@ -20,7 +20,7 @@ export default {
     name: "AccessDenied",
     data() {
         return {
-            redirect:'/home'
+            redirect: '/home'
         }
     },
     created() {

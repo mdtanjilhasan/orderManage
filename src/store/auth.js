@@ -4,24 +4,24 @@ const auth = {
     namespaced: true,
     state: {
         userdata: {
-            name:'',
-            email:'',
-            is_admin:'',
+            name: '',
+            email: '',
+            is_admin: '',
         },
         token: null,
         expiresAt: null
     },
     mutations: {
-        authDetail(state, user,token,expire) {
+        authDetail(state, user, token, expire) {
             state.userdata = user
             state.token = token
             state.expiresAt = expire
         },
         revokeAuthData(state) {
             state.userdata = {
-                name:'',
-                email:'',
-                is_admin:'',
+                name: '',
+                email: '',
+                is_admin: '',
             }
             state.token = null
             state.expiresAt = null
@@ -32,7 +32,7 @@ const auth = {
             return new Promise((resolve, reject) => {
                 axios.post('/api/login.php', params)
                     .then(response => {
-                        commit('authDetail', response.data.user,response.data.token,response.data.expire_at)
+                        commit('authDetail', response.data.user, response.data.token, response.data.expire_at)
                         sessionStorage.setItem('token', response.data.token)
                         sessionStorage.setItem('user', JSON.stringify(response.data.user))
                         resolve(response.data)

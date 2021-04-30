@@ -10,14 +10,15 @@
                         <table class="table table-striped">
                             <tbody>
                             <tr v-for="(item, index) in product" :key="index">
-                                <th scope="row" class="text-uppercase"> {{ index.replace('_',' ') }}</th>
+                                <th scope="row" class="text-uppercase"> {{ index.replace('_', ' ') }}</th>
                                 <th scope="row"> {{ item }}</th>
                             </tr>
 
                             <tr v-if="images">
                                 <td scope="row">Image</td>
                                 <td scope="row">
-                                    <img :src="'http://127.0.0.1:5000/'+images.path" alt="product image" class="img-fluid">    
+                                    <img :src="'http://127.0.0.1:5000/'+images.path" alt="product image"
+                                         class="img-fluid">
                                 </td>
                             </tr>
                             </tbody>
@@ -49,14 +50,14 @@ export default {
     },
     methods: {
         findProduct(id) {
-            this.$store.dispatch('products/fetchProduct',id)
+            this.$store.dispatch('products/fetchProduct', id)
                 .then(response => {
                     this.product = {...response.data}
                     if (response.images.data) {
                         this.images = {...response.images.data[0]}
                     }
                 })
-                .catch(error =>{
+                .catch(error => {
                     console.log(error)
                 })
         }

@@ -5,7 +5,8 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <ProductForm ref="ProductForm" :title="title" :buttonTitle="btnTitle" :product="product" @onSubmit="onSubmit"/>
+                    <ProductForm ref="ProductForm" :title="title" :buttonTitle="btnTitle" :product="product"
+                                 @onSubmit="onSubmit"/>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
@@ -44,13 +45,13 @@ export default {
                 })
         },
         findProduct(id) {
-            this.$store.dispatch('products/fetchProduct',id)
-            .then(response => {
-                this.product = {...response.data}
-            })
-            .catch(error =>{
-                console.log(error)
-            })
+            this.$store.dispatch('products/fetchProduct', id)
+                .then(response => {
+                    this.product = {...response.data}
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     }
 }

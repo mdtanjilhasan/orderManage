@@ -22,20 +22,20 @@ const product = {
                     });
             })
         },
-        store(context,params) {
+        store(context, params) {
             return new Promise((resolve, reject) => {
                 axios.post('/api/admin/products/create.php', params)
-                .then(response => {
-                    resolve(response.data)
-                })
-                .catch(error => {
-                    reject(error.response)
-                });
+                    .then(response => {
+                        resolve(response.data)
+                    })
+                    .catch(error => {
+                        reject(error.response)
+                    });
             })
         },
-        fetchProduct(context,id) {
+        fetchProduct(context, id) {
             return new Promise((resolve, reject) => {
-                axios.get('/api/admin/products/read.php?id='+id)
+                axios.get('/api/admin/products/read.php?id=' + id)
                     .then(response => {
                         resolve(response.data)
                     })
@@ -44,9 +44,9 @@ const product = {
                     })
             })
         },
-        update(context,params) {
+        update(context, params) {
             return new Promise((resolve, reject) => {
-                axios.post('/api/admin/products/update.php',params)
+                axios.post('/api/admin/products/update.php', params)
                     .then(response => {
                         resolve(response.data)
                     })
@@ -55,10 +55,10 @@ const product = {
                     })
             })
         },
-        delete(context,id) {
-            return new Promise((resolve, reject) =>{
-                axios.get('/api/admin/products/delete.php?id='+id)
-                    .then(response =>{
+        delete(context, id) {
+            return new Promise((resolve, reject) => {
+                axios.get('/api/admin/products/delete.php?id=' + id)
+                    .then(response => {
                         resolve(response.data)
                     })
                     .catch(error => {

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import store from '../store'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/admin/Dashboard'
@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
         next('/page-not-found');
     }
 
-    if(to.matched.some(record => record.meta.requiresAuth) && to.matched.some(record => record.meta.onlyAdmin)) {
+    if (to.matched.some(record => record.meta.requiresAuth) && to.matched.some(record => record.meta.onlyAdmin)) {
         if (store.getters['authentication/isLoggedIn'] && store.getters['authentication/isAdmin']) {
             next()
             return

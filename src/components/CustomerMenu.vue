@@ -28,7 +28,7 @@
 <script>
 export default {
     name: "CustomerMenu",
-    data(){
+    data() {
         return {
             isLoggedIn: ''
         }
@@ -42,7 +42,7 @@ export default {
         this.isLoggedIn = this.$store.getters['authentication/isLoggedIn']
     },
     methods: {
-        handleLogOut(){
+        handleLogOut() {
             this.$store.dispatch('authentication/logout')
                 .then(() => {
                     this.$router.push('/')
