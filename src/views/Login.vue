@@ -78,6 +78,7 @@ export default {
                 .then(() => {
                     if (this.$store.getters['authentication/isAdmin']) {
                         this.$router.push('/dashboard')
+                        return
                     }
                     this.$router.push('/home')
                 })
