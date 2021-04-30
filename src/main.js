@@ -8,8 +8,20 @@ import axios from "axios";
 
 axios.interceptors.request.use(config => {
     const token = store.getters['authentication/getToken']
-    config.headers.Authorization = 'Bearer '+token
+    if (token) {
+        config.headers.Authorization = 'Bearer '+token
+    }
     return config
+})
+
+axios.interceptors.request.use(response => {
+    return response
+}, function (error){
+    console.log(error.response.data)
+    if (error.response.status === 401) {
+        store.dispatch('authentication/logout')
+        router.push('/')
+    }
 })
 
 createApp(App).use(store).use(router).mount('#app')

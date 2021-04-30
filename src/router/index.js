@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store'
-// import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/admin/Dashboard'
 
@@ -14,6 +13,38 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/products',
+        name: 'Products',
+        component: () => import('@/views/admin/Products'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/product/create',
+        name: 'ProductCreate',
+        component: () => import('@/views/admin/product/Create'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/product/:id",
+        name: "ProductDetails",
+        component: () => import("@/views/admin/Product"),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/product/edit/:id",
+        name: "ProductEdit",
+        component: () => import("@/views/admin/product/Update"),
         meta: {
             requiresAuth: true
         }

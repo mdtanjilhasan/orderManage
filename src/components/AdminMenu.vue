@@ -49,11 +49,7 @@ export default {
     },
     methods: {
         handleLogOut(){
-            this.$store.dispatch('authentication/logout',{
-                headers: {
-                    'Authorization': `Bearer TOKEN`
-                }
-            })
+            this.$store.dispatch('authentication/logout')
                 .then(() => {
                     this.$router.push('/')
                 })

@@ -33,13 +33,13 @@ const auth = {
                 axios.post('/api/login.php', params)
                     .then(response => {
                         commit('authDetail', response.data.user,response.data.token,response.data.expire_at)
-                        localStorage.setItem('token', response.data.token)
-                        localStorage.setItem('user', JSON.stringify(response.data.user))
+                        sessionStorage.setItem('token', response.data.token)
+                        sessionStorage.setItem('user', JSON.stringify(response.data.user))
                         resolve(response.data)
                     })
                     .catch(error => {
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('user')
+                        sessionStorage.removeItem('token')
+                        sessionStorage.removeItem('user')
                         reject(error.response)
                     });
             })
@@ -48,14 +48,14 @@ const auth = {
             return new Promise((resolve, reject) => {
                 axios.post('/api/logout.php')
                     .then(response => {
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('user')
+                        sessionStorage.removeItem('token')
+                        sessionStorage.removeItem('user')
                         commit('revokeAuthData')
                         resolve(response.data)
                     })
                     .catch(error => {
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('user')
+                        sessionStorage.removeItem('token')
+                        sessionStorage.removeItem('user')
                         commit('revokeAuthData')
                         reject(error.response)
                     });
@@ -64,25 +64,23 @@ const auth = {
     },
     getters: {
         isLoggedIn: state => {
-            // localStorage.removeItem('token')
-            // localStorage.removeItem('user')
             if (state.token) {
                 return true;
             }
-            return !!localStorage.getItem('token');
+            return !!sessionStorage.getItem('token');
         },
         getUserName: state => {
             if (state.userdata.name) {
                 return state.userdata.name
             }
-            let json = JSON.parse(localStorage.getItem('user'))
+            let json = JSON.parse(sessionStorage.getItem('user'))
             return json ? json.name ? json.name : '' : ''
         },
         getToken: state => {
             if (state.token) {
                 return state.token
             }
-            return localStorage.getItem('token');
+            return sessionStorage.getItem('token');
         }
     }
 }
