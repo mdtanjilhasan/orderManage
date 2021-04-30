@@ -14,7 +14,8 @@ const routes = [
         name: 'Dashboard',
         component: Dashboard,
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            onlyAdmin: true
         }
     },
     {
@@ -22,7 +23,8 @@ const routes = [
         name: 'Products',
         component: () => import('@/views/admin/Products'),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            onlyAdmin: true
         }
     },
     {
@@ -30,7 +32,8 @@ const routes = [
         name: 'ProductCreate',
         component: () => import('@/views/admin/product/Create'),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            onlyAdmin: true
         }
     },
     {
@@ -38,7 +41,8 @@ const routes = [
         name: "ProductDetails",
         component: () => import("@/views/admin/product/Details"),
         meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            onlyAdmin: true
         }
     },
     {
@@ -46,8 +50,25 @@ const routes = [
         name: "ProductEdit",
         component: () => import("@/views/admin/product/Update"),
         meta: {
+            requiresAuth: true,
+            onlyAdmin: true
+        }
+    },
+    {
+        path: "/home",
+        name: "Home",
+        component: () => import("@/views/Home"),
+        meta: {
             requiresAuth: true
         }
+    },
+    {
+        path: "/access/denied",
+        component: () => import('@/components/AccessDenied')
+    },
+    {
+        path: "/page-not-found",
+        component: () => import('@/components/PageNotFound')
     }
 ]
 
@@ -57,8 +78,12 @@ const router = createRouter({
 })
 // auth check
 router.beforeEach((to, from, next) => {
-    if(to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.getters['authentication/isLoggedIn']) {
+    if (!to.matched.length) {
+        next('/page-not-found');
+    }
+
+    if(to.matched.some(record => record.meta.requiresAuth) && to.matched.some(record => record.meta.onlyAdmin)) {
+        if (store.getters['authentication/isLoggedIn'] && store.getters['authentication/isAdmin']) {
             next()
             return
         }
@@ -69,8 +94,14 @@ router.beforeEach((to, from, next) => {
                 router.back()
                 return
             }
+
+            if (to.matched.some(record => record.meta.onlyAdmin)) {
+                router.push('/access/denied')
+                return
+            }
+            next()
         }
-        next()
+        next('/')
     }
 })
 

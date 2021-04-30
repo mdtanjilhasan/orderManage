@@ -31,7 +31,6 @@ export default {
         }
     },
     created() {
-        // console.log(this.$route.params.id)
         this.findProduct(this.$route.params.id)
     },
     methods: {
@@ -41,7 +40,6 @@ export default {
                     this.$router.push({name: 'Products', params: {message: response.message}})
                 })
                 .catch(error => {
-                    console.log('product vue',error)
                     this.$refs.ProductForm.validationErrorMessage(error.data.messages)
                 })
         },
@@ -49,7 +47,6 @@ export default {
             this.$store.dispatch('products/fetchProduct',id)
             .then(response => {
                 this.product = {...response.data}
-                console.log(this.product)
             })
             .catch(error =>{
                 console.log(error)

@@ -76,7 +76,10 @@ export default {
 
             this.$store.dispatch('authentication/login', params)
                 .then(() => {
-                    this.$router.push('/dashboard')
+                    if (this.$store.getters['authentication/isAdmin']) {
+                        this.$router.push('/dashboard')
+                    }
+                    this.$router.push('/home')
                 })
                 .catch(error => {
                     if(error.status === 422){

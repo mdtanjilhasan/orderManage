@@ -81,6 +81,13 @@ const auth = {
                 return state.token
             }
             return sessionStorage.getItem('token');
+        },
+        isAdmin: state => {
+            if (state.userdata.is_admin) {
+                return true;
+            }
+            let json = JSON.parse(sessionStorage.getItem('user'))
+            return json ? !!json.is_admin : false
         }
     }
 }

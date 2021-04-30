@@ -100,6 +100,7 @@ export default {
         if (this.product) {
             this.data = {...this.product}
         }
+        console.log(this.data.id)
     },
     methods: {
         onSave() {
